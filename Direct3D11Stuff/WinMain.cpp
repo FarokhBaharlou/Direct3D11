@@ -1,7 +1,12 @@
+
 #include <Windows.h>
+#include "WindowsMessageMap.h"
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
+	//static WindowsMessageMap mm;
+	//OutputDebugString(mm(msg, lParam, wParam).c_str());
+
 	switch (msg)
 	{
 	case WM_CLOSE:
@@ -16,7 +21,7 @@ int CALLBACK WinMain(HINSTANCE hInstance,
 	LPSTR lpCmdLine,
 	int nCmdShow)
 {
-	const auto pClassName = L"d3d11App";
+	const auto pClassName = "d3d11App";
 	//Register window class on windows Api side
 	WNDCLASSEX wc = { 0 };
 	wc.cbSize = sizeof(wc);
@@ -36,7 +41,7 @@ int CALLBACK WinMain(HINSTANCE hInstance,
 	//Creat window instance
 	HWND hWnd = CreateWindowEx(
 		0, pClassName,
-		L"d3d window",
+		"d3d window",
 		WS_CAPTION | WS_MINIMIZEBOX | WS_SYSMENU,
 		200, 200, 640, 480,
 		nullptr, nullptr, hInstance, nullptr
