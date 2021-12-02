@@ -1,9 +1,23 @@
 #pragma once
 
 #include "FarokhWin.h"
+#include "FarokhException.h"
 
 class Window
 {
+public:
+	class Exception : public FarokhException
+	{
+	public:
+		Exception(int line, const char* file, HRESULT hr) noexcept;
+		const char* what() const noexcept override;
+		virtual const char* GetType() const noexcept;
+		static std::string TranslateErrorCode(HRESULT hr) noexcept;
+		HRESULT GetErrorCode() const noexcept;
+		std::string GetErrorString() const noexcept;
+	private:
+		HRESULT hr;
+	};
 private:
 	//Singleton that manages registration of our window
 	class WindowClass
@@ -21,7 +35,7 @@ private:
 		HINSTANCE hInst;
 	};
 public:
-	Window(int width, int height, const char* name) noexcept;
+	Window(int width, int height, const char* name);
 	~Window();
 	Window(const Window&) = delete;
 	Window& operator=(const Window&) = delete;
@@ -34,3 +48,7 @@ private:
 	int height;
 	HWND hWnd;
 };
+
+// Exception helper macro
+#define FWND_EXCEPT( hr ) Window::Exception( __LINE__,__FILE__,hr )
+#define FWND_LAST_EXCEPT() Window::Exception( __LINE__,__FILE__,GetLastError() )
