@@ -168,7 +168,7 @@ LRESULT Window::HandleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noe
 		// not in client region -> log move / maintain capture if button down
 		else
 		{
-			if (wParam & MK_LBUTTON | MK_RBUTTON)
+			if (wParam & (MK_LBUTTON | MK_RBUTTON))
 				mouse.OnMouseMove(pt.x, pt.y);
 			// button up -> release capture / log event for leaving
 			else
