@@ -1,5 +1,5 @@
 
-#include "Window.h"
+#include "App.h"
 
 int CALLBACK WinMain(HINSTANCE hInstance,
 	HINSTANCE hPrevInstance,
@@ -8,21 +8,7 @@ int CALLBACK WinMain(HINSTANCE hInstance,
 {
 	try
 	{
-		Window wnd(800, 300, "D3D11 Stuff");
-
-		// Message pump
-		MSG msg;
-		BOOL getResult;
-		while ((getResult = GetMessage(&msg, nullptr, 0, 0)) > 0)
-		{
-			TranslateMessage(&msg);
-			DispatchMessage(&msg);
-		}
-
-		if (getResult == -1)
-			throw FWND_LAST_EXCEPT();
-		else
-			return msg.wParam;
+		return App{}.Go();
 	}
 	catch (const FarokhException& e)
 	{
