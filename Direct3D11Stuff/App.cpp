@@ -1,7 +1,7 @@
 
 #include "App.h"
 
-App::App() : wnd(800, 300, "D3D11 Stuff")
+App::App() : wnd(800, 600, "D3D11 Stuff")
 {
 }
 
@@ -17,4 +17,7 @@ int App::Go()
 
 void App::DoFrame()
 {
+	const float c = sin(timer.Peek()) / 2.0f + 0.5f;
+	wnd.Gfx().ClearBuffer(c, c, 1.0f);
+	wnd.Gfx().EndFrame();
 }
