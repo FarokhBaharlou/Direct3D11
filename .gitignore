@@ -316,6 +316,7 @@ paket-files/
 __pycache__/
 *.pyc
 *.cso
+/hw3d/imgui.ini
 
 # Cake - Uncomment if you are using it
 # tools/**

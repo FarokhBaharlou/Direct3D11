@@ -3,6 +3,7 @@
 #include <sstream>
 #include "resource.h"
 #include "WindowsThrowMacros.h"
+#include "imgui/imgui_impl_win32.h"
 
 Window::WindowClass Window::WindowClass::wndClass;
 
@@ -70,11 +71,14 @@ Window::Window(int width, int height, const char* name) : width{width}, height{h
 	}
 	// show window
 	ShowWindow(hWnd, SW_SHOWDEFAULT);
+	//init ImGui Win32 Impl
+	ImGui_ImplWin32_Init(hWnd);
 	pGfx = std::make_unique<Graphics>(hWnd);
 }
 
 Window::~Window()
 {
+	ImGui_ImplWin32_Shutdown();
 	DestroyWindow(hWnd);
 }
 
@@ -138,6 +142,12 @@ LRESULT CALLBACK Window::HandleMsgThunk(HWND hWnd, UINT msg, WPARAM wParam, LPAR
 
 LRESULT Window::HandleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noexcept
 {
+	if (ImGui_ImplWin32_WndProcHandler(hWnd, msg, wParam, lParam))
+	{
+		return true;
+	}
+	const auto& imio = ImGui::GetIO();
+
 	switch (msg)
 	{
 	case WM_CLOSE:
@@ -151,14 +161,29 @@ LRESULT Window::HandleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noe
 	//Handle system keys too (ALT)
 	case WM_KEYDOWN:
 	case WM_SYSKEYDOWN:
+		// stifle this keyboard message if imgui wants to capture
+		if (imio.WantCaptureKeyboard)
+		{
+			break;
+		}
 		if(!(lParam & 0x40000000) || kbd.AutorepeatIsEnabled())
 			kbd.OnKeyPressed(static_cast<unsigned char>(wParam));
 		break;
 	case WM_KEYUP:
 	case WM_SYSKEYUP:
+		// stifle this keyboard message if imgui wants to capture
+		if (imio.WantCaptureKeyboard)
+		{
+			break;
+		}
 		kbd.OnKeyReleased(static_cast<unsigned char>(wParam));
 		break;
 	case WM_CHAR:
+		// stifle this keyboard message if imgui wants to capture
+		if (imio.WantCaptureKeyboard)
+		{
+			break;
+		}
 		kbd.OnChar(static_cast<unsigned char>(wParam));
 		break;
 
@@ -192,6 +217,12 @@ LRESULT Window::HandleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noe
 	}
 	case WM_LBUTTONDOWN:
 	{
+		SetForegroundWindow(hWnd);
+		// stifle this mouse message if imgui wants to capture
+		if (imio.WantCaptureMouse)
+		{
+			break;
+		}
 		const POINTS pt = MAKEPOINTS(lParam);
 		mouse.OnLeftPressed(pt.x, pt.y);
 		SetForegroundWindow(hWnd);
@@ -199,12 +230,22 @@ LRESULT Window::HandleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noe
 	}
 	case WM_RBUTTONDOWN:
 	{
+		// stifle this mouse message if imgui wants to capture
+		if (imio.WantCaptureMouse)
+		{
+			break;
+		}
 		const POINTS pt = MAKEPOINTS(lParam);
 		mouse.OnRightPressed(pt.x, pt.y);
 		break;
 	}
 	case WM_LBUTTONUP:
 	{
+		// stifle this mouse message if imgui wants to capture
+		if (imio.WantCaptureMouse)
+		{
+			break;
+		}
 		const POINTS pt = MAKEPOINTS(lParam);
 		mouse.OnLeftReleased(pt.x, pt.y);
 		// release mouse if outside of window
@@ -217,6 +258,11 @@ LRESULT Window::HandleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noe
 	}
 	case WM_RBUTTONUP:
 	{
+		// stifle this mouse message if imgui wants to capture
+		if (imio.WantCaptureMouse)
+		{
+			break;
+		}
 		const POINTS pt = MAKEPOINTS(lParam);
 		mouse.OnRightReleased(pt.x, pt.y);
 		// release mouse if outside of window
@@ -229,6 +275,11 @@ LRESULT Window::HandleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noe
 	}
 	case WM_MOUSEWHEEL:
 	{
+		// stifle this mouse message if imgui wants to capture
+		if (imio.WantCaptureMouse)
+		{
+			break;
+		}
 		const POINTS pt = MAKEPOINTS(lParam);
 		if (GET_WHEEL_DELTA_WPARAM(wParam) > 0)
 			mouse.OnWheelUp(pt.x, pt.y);
