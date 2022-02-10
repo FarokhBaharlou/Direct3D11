@@ -4,12 +4,16 @@
 #include "Cylinder.h"
 #include "Pyramid.h"
 #include "SkinnedBox.h"
+#include "AssimpTest.h"
 #include <memory>
 #include <algorithm>
 #include "My3DMath.h"
 #include "Surface.h"
 #include "GDIPlusManager.h"
 #include "imgui/imgui.h"
+#include <assimp/Importer.hpp>
+#include <assimp/scene.h>
+#include <assimp/postprocess.h>
 
 namespace dx = DirectX;
 
@@ -48,6 +52,11 @@ App::App() : wnd(800, 600, "D3D11 Stuff"), light(wnd.Gfx())
 					gfx, rng, adist, ddist,
 					odist, rdist
 					);
+			case 4:
+				return std::make_unique<AssimpTest>(
+					gfx, rng, adist, ddist,
+					odist, rdist, mat, 1.5f
+					);
 			default:
 				assert(false && "impossible drawable option in factory");
 				return {};
@@ -56,7 +65,7 @@ App::App() : wnd(800, 600, "D3D11 Stuff"), light(wnd.Gfx())
 	private:
 		Graphics& gfx;
 		std::mt19937 rng{ std::random_device{}() };
-		std::uniform_int_distribution<int> sdist{ 0,3 };
+		std::uniform_int_distribution<int> sdist{ 0,4 };
 		std::uniform_real_distribution<float> adist{ 0.0f,PI * 2.0f };
 		std::uniform_real_distribution<float> ddist{ 0.0f,PI * 0.5f };
 		std::uniform_real_distribution<float> odist{ 0.0f,PI * 0.08f };
