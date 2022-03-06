@@ -7,7 +7,7 @@
 #include "GDIPlusManager.h"
 #include "imgui/imgui.h"
 #include "VertexBuffer.h"
-#include "NormalMapTweeker.h"
+#include "TexturePreprocessor.h"
 #include <shellapi.h>
 
 namespace dx = DirectX;
@@ -22,19 +22,33 @@ App::App(const std::string& commandLine) : commandLine(commandLine), wnd(1280, 7
 		int nArgs;
 		const auto pLineW = GetCommandLineW();
 		const auto pArgs = CommandLineToArgvW(pLineW, &nArgs);
-		if (nArgs >= 4 && std::wstring(pArgs[1]) == L"--ntwerk-rotx180")
+		if (nArgs >= 3 && std::wstring(pArgs[1]) == L"--tweek-objnorm")
+		{
+			const std::wstring pathInWide = pArgs[2];
+			TexturePreprocessor::FlipYAllNormalMapsInObj(std::string(pathInWide.begin(), pathInWide.end()));
+			throw std::runtime_error("Normal maps all processed successfully. Just kidding about that whole runtime error thing.");
+		}
+		else if (nArgs >= 3 && std::wstring(pArgs[1]) == L"--tweek-flipy")
 		{
 			const std::wstring pathInWide = pArgs[2];
 			const std::wstring pathOutWide = pArgs[3];
-			NormalMapTweeker::RotateXAxis180(std::string(pathInWide.begin(), pathInWide.end()), std::string(pathOutWide.begin(), pathOutWide.end()));
+			TexturePreprocessor::FlipYNormalMap(std::string(pathInWide.begin(), pathInWide.end()), std::string(pathOutWide.begin(), pathOutWide.end()));
 			throw std::runtime_error("Normal map processed successfully. Just kidding about that whole runtime error thing.");
 		}
+		else if (nArgs >= 4 && std::wstring(pArgs[1]) == L"--tweek-validate")
+		{
+			const std::wstring minWide = pArgs[2];
+			const std::wstring maxWide = pArgs[3];
+			const std::wstring pathWide = pArgs[4];
+			TexturePreprocessor::ValidateNormalMap(std::string(pathWide.begin(), pathWide.end()), std::stof(minWide), std::stof(maxWide));
+			throw std::runtime_error("Normal map validated successfully. Just kidding about that whole runtime error thing.");
+		}
 	}
-	wall.SetRootTransform(dx::XMMatrixTranslation(-12.0f, 0.0f, 0.0f));
-	tp.SetPos({ 12.0f,0.0f,0.0f });
-	gobber.SetRootTransform(dx::XMMatrixTranslation(0.0f, 0.0f, -4.0f));
-	nano.SetRootTransform(dx::XMMatrixTranslation(0.0f, -7.0f, 6.0f));
-	wnd.Gfx().SetProjection(dx::XMMatrixPerspectiveLH(1.0f, 9.0f / 16.0f, 0.5f, 40.0f));
+	//wall.SetRootTransform( dx::XMMatrixTranslation( -12.0f,0.0f,0.0f ) );
+	//tp.SetPos( { 12.0f,0.0f,0.0f } );
+	//gobber.SetRootTransform( dx::XMMatrixTranslation( 0.0f,0.0f,-4.0f ) );
+	//nano.SetRootTransform( dx::XMMatrixTranslation( 0.0f,-7.0f,6.0f ) );
+	wnd.Gfx().SetProjection(dx::XMMatrixPerspectiveLH(1.0f, 9.0f / 16.0f, 0.5f, 400.0f));
 }
 
 void App::DoFrame()
@@ -44,11 +58,12 @@ void App::DoFrame()
 	wnd.Gfx().SetCamera(cam.GetMatrix());
 	light.Bind(wnd.Gfx(), cam.GetMatrix());
 
-	wall.Draw(wnd.Gfx());
-	tp.Draw(wnd.Gfx());
-	nano.Draw(wnd.Gfx());
-	gobber.Draw(wnd.Gfx());
+	//wall.Draw( wnd.Gfx() );
+	//tp.Draw( wnd.Gfx() );
+	//nano.Draw( wnd.Gfx() );
+	//gobber.Draw( wnd.Gfx() );
 	light.Draw(wnd.Gfx());
+	sponza.Draw(wnd.Gfx());
 
 	while (const auto e = wnd.kbd.ReadKey())
 	{
@@ -117,10 +132,11 @@ void App::DoFrame()
 	cam.SpawnControlWindow();
 	light.SpawnControlWindow();
 	ShowImguiDemoWindow();
-	gobber.ShowWindow(wnd.Gfx(), "gobber");
-	wall.ShowWindow(wnd.Gfx(), "Wall");
-	tp.SpawnControlWindow(wnd.Gfx());
-	nano.ShowWindow(wnd.Gfx(), "Nano");
+	//gobber.ShowWindow( wnd.Gfx(),"gobber" );
+	//wall.ShowWindow( wnd.Gfx(),"Wall" );
+	//tp.SpawnControlWindow( wnd.Gfx() );
+	//nano.ShowWindow( wnd.Gfx(),"Nano" );
+	sponza.ShowWindow(wnd.Gfx(), "Sponza");
 
 	// present
 	wnd.Gfx().EndFrame();

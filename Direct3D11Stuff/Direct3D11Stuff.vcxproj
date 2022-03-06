@@ -195,6 +195,7 @@
     <ClCompile Include="TestCube.cpp" />
     <ClCompile Include="TestPlane.cpp" />
     <ClCompile Include="Texture.cpp" />
+    <ClCompile Include="TexturePreprocessor.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="Topology.cpp" />
     <ClCompile Include="TransformCbuf.cpp" />
@@ -241,7 +242,6 @@
     <ClInclude Include="Mouse.h" />
     <ClInclude Include="My3DMath.h" />
     <ClInclude Include="MyXM.h" />
-    <ClInclude Include="NormalMapTweeker.h" />
     <ClInclude Include="PixelShader.h" />
     <ClInclude Include="Plane.h" />
     <ClInclude Include="PointLight.h" />
@@ -253,6 +253,7 @@
     <ClInclude Include="TestCube.h" />
     <ClInclude Include="TestPlane.h" />
     <ClInclude Include="Texture.h" />
+    <ClInclude Include="TexturePreprocessor.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="Topology.h" />
     <ClInclude Include="TransformCbuf.h" />
