@@ -159,6 +159,9 @@
     <ClCompile Include="TestCube.cpp">
       <Filter>Source Files\Drawable</Filter>
     </ClCompile>
+    <ClCompile Include="MyXM.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="WindowsMessageMap.h">
@@ -323,6 +326,12 @@
     <ClInclude Include="TestCube.h">
       <Filter>Header Files\Drawable</Filter>
     </ClInclude>
+    <ClInclude Include="NormalMapTweeker.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MyXM.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Direct3D11Stuff.rc">
@@ -377,6 +386,27 @@
       <Filter>Shaders</Filter>
     </FxCompile>
     <FxCompile Include="PhongPSNormalMapObject.hlsl">
+      <Filter>Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="PhongPSNotex.hlsl">
+      <Filter>Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="PhongVSNotex.hlsl">
+      <Filter>Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="PointLight.hlsl">
+      <Filter>Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="ShaderOps.hlsl">
+      <Filter>Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="LightVectorData.hlsl">
+      <Filter>Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="Transform.hlsl">
+      <Filter>Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="PhongPSSpec.hlsl">
       <Filter>Shaders</Filter>
     </FxCompile>
   </ItemGroup>

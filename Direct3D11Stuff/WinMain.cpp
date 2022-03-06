@@ -8,7 +8,7 @@ int CALLBACK WinMain(HINSTANCE hInstance,
 {
 	try
 	{
-		return App{}.Go();
+		return App{ lpCmdLine }.Go();
 	}
 	catch (const FarokhException& e)
 	{

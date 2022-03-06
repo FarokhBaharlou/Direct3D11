@@ -7,15 +7,33 @@
 #include "GDIPlusManager.h"
 #include "imgui/imgui.h"
 #include "VertexBuffer.h"
+#include "NormalMapTweeker.h"
+#include <shellapi.h>
 
 namespace dx = DirectX;
 
 GDIPlusManager gdipm;
 
-App::App() : wnd(1280, 720, "D3D11 Stuff"), light(wnd.Gfx())
+App::App(const std::string& commandLine) : commandLine(commandLine), wnd(1280, 720, "D3D11 Stuff"), light(wnd.Gfx())
 {
-	wall.SetRootTransform(dx::XMMatrixTranslation(-1.5f, 0.0f, 0.0f));
-	tp.SetPos({ 1.5f,0.0f,0.0f });
+	// makeshift cli for doing some preprocessing bullshit (so many hacks here)
+	if (this->commandLine != "")
+	{
+		int nArgs;
+		const auto pLineW = GetCommandLineW();
+		const auto pArgs = CommandLineToArgvW(pLineW, &nArgs);
+		if (nArgs >= 4 && std::wstring(pArgs[1]) == L"--ntwerk-rotx180")
+		{
+			const std::wstring pathInWide = pArgs[2];
+			const std::wstring pathOutWide = pArgs[3];
+			NormalMapTweeker::RotateXAxis180(std::string(pathInWide.begin(), pathInWide.end()), std::string(pathOutWide.begin(), pathOutWide.end()));
+			throw std::runtime_error("Normal map processed successfully. Just kidding about that whole runtime error thing.");
+		}
+	}
+	wall.SetRootTransform(dx::XMMatrixTranslation(-12.0f, 0.0f, 0.0f));
+	tp.SetPos({ 12.0f,0.0f,0.0f });
+	gobber.SetRootTransform(dx::XMMatrixTranslation(0.0f, 0.0f, -4.0f));
+	nano.SetRootTransform(dx::XMMatrixTranslation(0.0f, -7.0f, 6.0f));
 	wnd.Gfx().SetProjection(dx::XMMatrixPerspectiveLH(1.0f, 9.0f / 16.0f, 0.5f, 40.0f));
 }
 
@@ -28,7 +46,8 @@ void App::DoFrame()
 
 	wall.Draw(wnd.Gfx());
 	tp.Draw(wnd.Gfx());
-	//nano.Draw( wnd.Gfx() );
+	nano.Draw(wnd.Gfx());
+	gobber.Draw(wnd.Gfx());
 	light.Draw(wnd.Gfx());
 
 	while (const auto e = wnd.kbd.ReadKey())
@@ -98,9 +117,10 @@ void App::DoFrame()
 	cam.SpawnControlWindow();
 	light.SpawnControlWindow();
 	ShowImguiDemoWindow();
-	wall.ShowWindow("Wall");
+	gobber.ShowWindow(wnd.Gfx(), "gobber");
+	wall.ShowWindow(wnd.Gfx(), "Wall");
 	tp.SpawnControlWindow(wnd.Gfx());
-	//nano.ShowWindow( "Model 1" );
+	nano.ShowWindow(wnd.Gfx(), "Nano");
 
 	// present
 	wnd.Gfx().EndFrame();
