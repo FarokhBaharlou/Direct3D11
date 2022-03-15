@@ -48,6 +48,9 @@ App::App(const std::string& commandLine) : commandLine(commandLine), wnd(1280, 7
 	//tp.SetPos( { 12.0f,0.0f,0.0f } );
 	//gobber.SetRootTransform( dx::XMMatrixTranslation( 0.0f,0.0f,-4.0f ) );
 	//nano.SetRootTransform( dx::XMMatrixTranslation( 0.0f,-7.0f,6.0f ) );
+	bluePlane.SetPos(cam.GetPos());
+	redPlane.SetPos(cam.GetPos());
+
 	wnd.Gfx().SetProjection(dx::XMMatrixPerspectiveLH(1.0f, 9.0f / 16.0f, 0.5f, 400.0f));
 }
 
@@ -64,6 +67,8 @@ void App::DoFrame()
 	//gobber.Draw( wnd.Gfx() );
 	light.Draw(wnd.Gfx());
 	sponza.Draw(wnd.Gfx());
+	bluePlane.Draw(wnd.Gfx());
+	redPlane.Draw(wnd.Gfx());
 
 	while (const auto e = wnd.kbd.ReadKey())
 	{
@@ -137,6 +142,8 @@ void App::DoFrame()
 	//tp.SpawnControlWindow( wnd.Gfx() );
 	//nano.ShowWindow( wnd.Gfx(),"Nano" );
 	sponza.ShowWindow(wnd.Gfx(), "Sponza");
+	bluePlane.SpawnControlWindow(wnd.Gfx(), "Blue Plane");
+	redPlane.SpawnControlWindow(wnd.Gfx(), "Red Plane");
 
 	// present
 	wnd.Gfx().EndFrame();
