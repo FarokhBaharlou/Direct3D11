@@ -5,6 +5,7 @@
 #include <vector>
 #include <string>
 #include <dxgidebug.h>
+#include <string>
 
 class DxgiInfoManager
 {

@@ -10,10 +10,7 @@
 
 Surface::Surface(unsigned int width, unsigned int height)
 {
-	HRESULT hr = scratch.Initialize2D(
-		format,
-		width, height, 1u, 1u
-	);
+	HRESULT hr = scratch.Initialize2D(format, width, height, 1u, 1u);
 	if (FAILED(hr))
 	{
 		throw Surface::Exception(__LINE__, __FILE__, "Failed to initialize ScratchImage", hr);
@@ -80,7 +77,7 @@ const Surface::Color* Surface::GetBufferPtrConst() const noexcept
 Surface Surface::FromFile(const std::string& name)
 {
 	DirectX::ScratchImage scratch;
-	HRESULT hr = DirectX::LoadFromWICFile(ToWide(name).c_str(), DirectX::WIC_FLAGS_NONE, nullptr, scratch);
+	HRESULT hr = DirectX::LoadFromWICFile(ToWide(name).c_str(), DirectX::WIC_FLAGS_IGNORE_SRGB, nullptr, scratch);
 
 	if (FAILED(hr))
 	{
