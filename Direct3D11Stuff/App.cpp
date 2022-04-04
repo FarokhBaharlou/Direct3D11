@@ -26,6 +26,7 @@ App::App(const std::string& commandLine) :
 	scriptCommander(TokenizeQuoted(commandLine)),
 	light(wnd.Gfx())
 {
+	TestDynamicConstant();
 	cube.SetPos({ 4.0f,0.0f,0.0f });
 	cube2.SetPos({ 0.0f,4.0f,0.0f });
 
@@ -317,6 +318,7 @@ void App::DoFrame()
 	ShowImguiDemoWindow();
 	cube.SpawnControlWindow(wnd.Gfx(), "Cube 1");
 	cube2.SpawnControlWindow(wnd.Gfx(), "Cube 2");
+	fc.ShowWindows(wnd.Gfx());
 	//sponza.ShowWindow(wnd.Gfx(), "Sponza");
 	//gobber.ShowWindow( wnd.Gfx(),"gobber" );
 	//wall.ShowWindow( wnd.Gfx(),"Wall" );
