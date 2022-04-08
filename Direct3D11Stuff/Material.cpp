@@ -1,6 +1,10 @@
 #include "Material.h"
+#include "BindableCommon.h"
 #include "DynamicConstant.h"
 #include "ConstantBuffersEx.h"
+#include "TransformCbufScaling.h"
+#include "Stencil.h"
+#include <filesystem>
 
 Material::Material(Graphics& gfx, const aiMaterial& material, const std::filesystem::path& path) noxnd : modelPath(path.string())
 {
@@ -14,7 +18,7 @@ Material::Material(Graphics& gfx, const aiMaterial& material, const std::filesys
 	// phong technique
 	{
 		Technique phong{ "Phong" };
-		Step step(0);
+		Step step("lambertian");
 		std::string shaderCode = "Phong";
 		aiString texFileName;
 
@@ -81,7 +85,6 @@ Material::Material(Graphics& gfx, const aiMaterial& material, const std::filesys
 		// common (post)
 		{
 			step.AddBindable(std::make_shared<TransformCbuf>(gfx, 0u));
-			step.AddBindable(Blender::Resolve(gfx, false));
 			auto pvs = VertexShader::Resolve(gfx, shaderCode + "_VS.cso");
 			auto pvsbc = pvs->GetBytecode();
 			step.AddBindable(std::move(pvs));
@@ -125,14 +128,10 @@ Material::Material(Graphics& gfx, const aiMaterial& material, const std::filesys
 	{
 		Technique outline("Outline", false);
 		{
-			Step mask(1);
-
-			auto pvs = VertexShader::Resolve(gfx, "Solid_VS.cso");
-			auto pvsbc = pvs->GetBytecode();
-			mask.AddBindable(std::move(pvs));
+			Step mask("outlineMask");
 
 			// TODO: better sub-layout generation tech for future consideration maybe
-			mask.AddBindable(InputLayout::Resolve(gfx, vtxLayout, pvsbc));
+			mask.AddBindable(InputLayout::Resolve(gfx, vtxLayout, VertexShader::Resolve(gfx, "Solid_VS.cso")->GetBytecode()));
 
 			mask.AddBindable(std::make_shared<TransformCbuf>(gfx));
 
@@ -141,15 +140,7 @@ Material::Material(Graphics& gfx, const aiMaterial& material, const std::filesys
 			outline.AddStep(std::move(mask));
 		}
 		{
-			Step draw(2);
-
-			// these can be pass-constant (tricky due to layout issues)
-			auto pvs = VertexShader::Resolve(gfx, "Solid_VS.cso");
-			auto pvsbc = pvs->GetBytecode();
-			draw.AddBindable(std::move(pvs));
-
-			// this can be pass-constant
-			draw.AddBindable(PixelShader::Resolve(gfx, "Solid_PS.cso"));
+			Step draw("outlineDraw");
 
 			{
 				Dcb::RawLayout lay;
@@ -160,7 +151,7 @@ Material::Material(Graphics& gfx, const aiMaterial& material, const std::filesys
 			}
 
 			// TODO: better sub-layout generation tech for future consideration maybe
-			draw.AddBindable(InputLayout::Resolve(gfx, vtxLayout, pvsbc));
+			draw.AddBindable(InputLayout::Resolve(gfx, vtxLayout, VertexShader::Resolve(gfx, "Solid_VS.cso")->GetBytecode()));
 
 			draw.AddBindable(std::make_shared<TransformCbuf>(gfx));
 

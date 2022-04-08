@@ -16,7 +16,7 @@ const char* FarokhException::what() const noexcept
 
 const char* FarokhException::GetType() const noexcept
 {
-	return "Farokh Exception";
+	return "My Exception";
 }
 
 int FarokhException::GetLine() const noexcept
