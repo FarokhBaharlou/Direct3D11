@@ -1,7 +1,7 @@
 #pragma once
 
 #include "FarokhWin.h"
-#include <wrl.h>
+#include "MyWRL.h"
 #include <vector>
 #include <string>
 #include <dxgidebug.h>

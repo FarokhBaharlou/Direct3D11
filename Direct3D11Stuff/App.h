@@ -3,13 +3,14 @@
 #include "Window.h"
 #include "Timer.h"
 #include "ImguiManager.h"
-#include "Camera.h"
+#include "CameraContainer.h"
 #include "PointLight.h"
 #include "TestCube.h"
 #include "Mesh.h"
 #include "Model.h"
 #include "ScriptCommander.h"
 #include "BlurOutlineRenderGraph.h"
+#include "My3DMath.h"
 
 class App
 {
@@ -30,9 +31,11 @@ private:
 	Rgph::BlurOutlineRenderGraph rg{ wnd.Gfx() };
 	Timer timer;
 	float speed_factor = 1.0f;
-	Camera cam;
+	CameraContainer cameras;
 	PointLight light;
 	TestCube cube{ wnd.Gfx(),4.0f };
 	TestCube cube2{ wnd.Gfx(),4.0f };
 	Model sponza{ wnd.Gfx(),"Models\\sponza\\sponza.obj",1.0f / 20.0f };
+	Model gobber{ wnd.Gfx(),"Models\\gobber\\GoblinX.obj",4.0f };
+	Model nano{ wnd.Gfx(),"Models\\nano_textured\\nanosuit.obj",2.0f };
 };

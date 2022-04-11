@@ -3,7 +3,7 @@
 #include "FarokhWin.h"
 #include "FarokhException.h"
 #include <d3d11.h>
-#include <wrl.h>
+#include "MyWRL.h"
 #include <vector>
 #include "DxgiInfoManager.h"
 #include <d3dcompiler.h>

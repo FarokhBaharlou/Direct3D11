@@ -20,8 +20,7 @@ namespace Rgph
 		AddGlobalSink(DirectBufferSink<Bind::RenderTarget>::Make("backbuffer", backBufferTarget));
 	}
 
-	RenderGraph::~RenderGraph()
-	{}
+	RenderGraph::~RenderGraph() {}
 
 	void RenderGraph::SetSinkTarget(const std::string& sinkName, const std::string& target)
 	{
@@ -114,14 +113,22 @@ namespace Rgph
 			}
 			else // find source from within existing passes
 			{
+				bool bound = false;
 				for (auto& existingPass : passes)
 				{
 					if (existingPass->GetName() == inputSourcePassName)
 					{
 						auto& source = existingPass->GetSource(si->GetOutputName());
 						si->Bind(source);
+						bound = true;
 						break;
 					}
+				}
+				if (!bound)
+				{
+					std::ostringstream oss;
+					oss << "Pass named [" << inputSourcePassName << "] not found";
+					throw RGC_EXCEPTION(oss.str());
 				}
 			}
 		}
