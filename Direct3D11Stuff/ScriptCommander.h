@@ -2,12 +2,12 @@
 
 #include <vector>
 #include <string>
-#include "FarokhException.h"
+#include "MyException.h"
 
 class ScriptCommander
 {
 public:
-	class Completion : public FarokhException
+	class Completion : public MyException
 	{
 	public:
 		Completion(const std::string& content) noexcept;
@@ -16,7 +16,7 @@ public:
 	private:
 		std::string content;
 	};
-	class Exception : public FarokhException
+	class Exception : public MyException
 	{
 	public:
 		Exception(int line, const char* file, const std::string& script = "", const std::string& message = "") noexcept;

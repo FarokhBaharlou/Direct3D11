@@ -1,5 +1,5 @@
 
-#include "Transform.hlsl"
+#include "Transform.hlsli"
 
 float4 main(float3 pos : Position) : SV_Position
 {

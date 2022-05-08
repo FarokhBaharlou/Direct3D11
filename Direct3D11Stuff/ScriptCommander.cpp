@@ -95,7 +95,7 @@ void ScriptCommander::Publish(std::string path) const
 	fs::copy("Models", path + R"(\Models)", fs::copy_options::overwrite_existing | fs::copy_options::recursive);
 }
 
-ScriptCommander::Completion::Completion(const std::string& content) noexcept : FarokhException(69, "@ScriptCommanderAbort"), content(content) {}
+ScriptCommander::Completion::Completion(const std::string& content) noexcept : MyException(69, "@ScriptCommanderAbort"), content(content) {}
 
 const char* ScriptCommander::Completion::what() const noexcept
 {
@@ -113,7 +113,7 @@ const char* ScriptCommander::Completion::GetType() const noexcept
 
 ScriptCommander::Exception::Exception(int line, const char* file, const std::string& script, const std::string& message) noexcept
 	:
-	FarokhException(69, "@ScriptCommanderAbort"),
+	MyException(69, "@ScriptCommanderAbort"),
 	script(script),
 	message(message)
 {}

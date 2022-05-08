@@ -1,12 +1,12 @@
 #pragma once
 
-#include "FarokhException.h"
+#include "MyException.h"
 
 #define RGC_EXCEPTION( message ) RenderGraphCompileException( (message),__LINE__,__FILE__ )
 
 namespace Rgph
 {
-	class RenderGraphCompileException : public FarokhException
+	class RenderGraphCompileException : public MyException
 	{
 	public:
 		RenderGraphCompileException(std::string message, int line, const char* file) noexcept;

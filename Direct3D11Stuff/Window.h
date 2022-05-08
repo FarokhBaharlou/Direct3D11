@@ -1,7 +1,7 @@
 #pragma once
 
-#include "FarokhWin.h"
-#include "FarokhException.h"
+#include "MyWin.h"
+#include "MyException.h"
 #include "Keyboard.h"
 #include "Mouse.h"
 #include "Graphics.h"
@@ -11,9 +11,9 @@
 class Window
 {
 public:
-	class Exception : public FarokhException
+	class Exception : public MyException
 	{
-		using FarokhException::FarokhException;
+		using MyException::MyException;
 	public:
 		static std::string TranslateErrorCode(HRESULT hr) noexcept;
 	};
@@ -46,7 +46,7 @@ private:
 		~WindowClass();
 		WindowClass(const WindowClass&) = delete;
 		WindowClass& operator=(const WindowClass&) = delete;
-		static constexpr const char* wndClassName = "Farokh's Direct3D Engine Window";
+		static constexpr const char* wndClassName = "My's Direct3D Engine Window";
 		static WindowClass wndClass;
 		HINSTANCE hInst;
 	};

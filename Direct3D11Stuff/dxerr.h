@@ -12,7 +12,7 @@
 //--------------------------------------------------------------------------------------
 
 #pragma once
-#include "FarokhWin.h"
+#include "MyWin.h"
 #include <sal.h>
 
 #ifdef __cplusplus

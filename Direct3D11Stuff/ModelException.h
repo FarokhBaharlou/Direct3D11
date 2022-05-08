@@ -1,8 +1,8 @@
 #pragma once
 
-#include "FarokhException.h"
+#include "MyException.h"
 
-class ModelException : public FarokhException
+class ModelException : public MyException
 {
 public:
 	ModelException(int line, const char* file, std::string note) noexcept;

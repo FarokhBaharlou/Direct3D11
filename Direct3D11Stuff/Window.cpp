@@ -481,5 +481,5 @@ std::string Window::HrException::GetErrorDescription() const noexcept
 
 const char* Window::NoGfxException::GetType() const noexcept
 {
-	return "Farokh Window Exception [No Graphics]";
+	return "My Window Exception [No Graphics]";
 }

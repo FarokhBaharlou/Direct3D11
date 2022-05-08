@@ -1,7 +1,7 @@
 #pragma once
 
-#include "FarokhWin.h"
-#include "FarokhException.h"
+#include "MyWin.h"
+#include "MyException.h"
 #include <string>
 #include <optional>
 #include "ConditionalNoexcept.h"
@@ -85,7 +85,7 @@ public:
 		}
 	};
 public:
-	class Exception : public FarokhException
+	class Exception : public MyException
 	{
 	public:
 		Exception(int line, const char* file, std::string note, std::optional<HRESULT> hr = {}) noexcept;

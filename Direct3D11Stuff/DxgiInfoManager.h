@@ -1,6 +1,6 @@
 #pragma once
 
-#include "FarokhWin.h"
+#include "MyWin.h"
 #include "MyWRL.h"
 #include <vector>
 #include <string>

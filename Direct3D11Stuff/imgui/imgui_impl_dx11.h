@@ -9,7 +9,7 @@
 // https://github.com/ocornut/imgui
 
 #pragma once
-#include "../FarokhWin.h"
+#include "../MyWin.h"
 #include "../Graphics.h"
 #include "imgui.h"
 

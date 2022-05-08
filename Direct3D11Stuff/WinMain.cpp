@@ -10,7 +10,7 @@ int CALLBACK WinMain(HINSTANCE hInstance,
 	{
 		return App{ lpCmdLine }.Go();
 	}
-	catch (const FarokhException& e)
+	catch (const MyException& e)
 	{
 		MessageBox(nullptr, e.what(), e.GetType(), MB_OK | MB_ICONEXCLAMATION);
 	}

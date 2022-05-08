@@ -75,7 +75,7 @@
     <ClCompile Include="Window.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="FarokhException.cpp">
+    <ClCompile Include="MyException.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Keyboard.cpp">
@@ -291,18 +291,27 @@
     <ClCompile Include="Frustum.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ShadowCameraCBuf.cpp">
+      <Filter>Source Files\Bindable</Filter>
+    </ClCompile>
+    <ClCompile Include="ShadowSampler.cpp">
+      <Filter>Source Files\Bindable</Filter>
+    </ClCompile>
+    <ClCompile Include="ShadowRasterizer.cpp">
+      <Filter>Source Files\Bindable</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="WindowsMessageMap.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="FarokhWin.h">
+    <ClInclude Include="MyWin.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Window.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="FarokhException.h">
+    <ClInclude Include="MyException.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="resource.h">
@@ -605,6 +614,21 @@
     <ClInclude Include="WireframePass.h">
       <Filter>Header Files\Render Graph System\Passlib</Filter>
     </ClInclude>
+    <ClInclude Include="Channels.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ShadowMappingPass.h">
+      <Filter>Header Files\Render Graph System\Passlib</Filter>
+    </ClInclude>
+    <ClInclude Include="ShadowCameraCBuf.h">
+      <Filter>Header Files\Bindable</Filter>
+    </ClInclude>
+    <ClInclude Include="ShadowSampler.h">
+      <Filter>Header Files\Bindable</Filter>
+    </ClInclude>
+    <ClInclude Include="ShadowRasterizer.h">
+      <Filter>Header Files\Bindable</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Direct3D11Stuff.rc">
@@ -635,6 +659,30 @@
     <None Include="DXTrace.inl">
       <Filter>Dxerr</Filter>
     </None>
+    <None Include="LightVectorData.hlsli">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="PointLight.hlsli">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="ShaderOps.hlsli">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Transform.hlsli">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="VShadow.hlsli">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="PShadow.hlsli">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="_PShadow_Dynamic.hlsli">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="_PShadow_Static.hlsli">
+      <Filter>Shaders</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Solid_VS.hlsl">
@@ -658,25 +706,10 @@
     <FxCompile Include="PhongDifNrm_VS.hlsl">
       <Filter>Shaders</Filter>
     </FxCompile>
-    <FxCompile Include="xPhongDifNro.hlsl">
-      <Filter>Shaders</Filter>
-    </FxCompile>
     <FxCompile Include="Phong_PS.hlsl">
       <Filter>Shaders</Filter>
     </FxCompile>
     <FxCompile Include="Phong_VS.hlsl">
-      <Filter>Shaders</Filter>
-    </FxCompile>
-    <FxCompile Include="PointLight.hlsl">
-      <Filter>Shaders</Filter>
-    </FxCompile>
-    <FxCompile Include="ShaderOps.hlsl">
-      <Filter>Shaders</Filter>
-    </FxCompile>
-    <FxCompile Include="LightVectorData.hlsl">
-      <Filter>Shaders</Filter>
-    </FxCompile>
-    <FxCompile Include="Transform.hlsl">
       <Filter>Shaders</Filter>
     </FxCompile>
     <FxCompile Include="PhongDifSpc_PS.hlsl">
@@ -694,7 +727,7 @@
     <FxCompile Include="PhongDifSpcNrm_VS.hlsl">
       <Filter>Shaders</Filter>
     </FxCompile>
-    <FxCompile Include="Offset_VS.hlsl">
+    <FxCompile Include="Offset_VS_deprecated.hlsl">
       <Filter>Shaders</Filter>
     </FxCompile>
     <FxCompile Include="Fullscreen_VS.hlsl">
@@ -712,13 +745,10 @@
     <FxCompile Include="PhongDifMskSpc_VS.hlsl">
       <Filter>Shaders</Filter>
     </FxCompile>
-    <FxCompile Include="Test1_VS.hlsl">
+    <FxCompile Include="ShadowTest_PS.hlsl">
       <Filter>Shaders</Filter>
     </FxCompile>
-    <FxCompile Include="Test2_VS.hlsl">
-      <Filter>Shaders</Filter>
-    </FxCompile>
-    <FxCompile Include="Test_PS.hlsl">
+    <FxCompile Include="ShadowTest_VS.hlsl">
       <Filter>Shaders</Filter>
     </FxCompile>
   </ItemGroup>

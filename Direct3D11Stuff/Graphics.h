@@ -1,7 +1,7 @@
 #pragma once
 
-#include "FarokhWin.h"
-#include "FarokhException.h"
+#include "MyWin.h"
+#include "MyException.h"
 #include <d3d11.h>
 #include "MyWRL.h"
 #include <vector>
@@ -23,9 +23,9 @@ class Graphics
 	friend class GraphicsResource;
 
 public:
-	class Exception : public FarokhException
+	class Exception : public MyException
 	{
-		using FarokhException::FarokhException;
+		using MyException::MyException;
 	};
 	class HrException : public Exception
 	{

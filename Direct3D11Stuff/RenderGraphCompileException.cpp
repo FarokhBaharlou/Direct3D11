@@ -4,12 +4,12 @@
 
 namespace Rgph
 {
-	RenderGraphCompileException::RenderGraphCompileException(std::string message, int line, const char* file) noexcept : FarokhException(line, file), message(std::move(message)) {}
+	RenderGraphCompileException::RenderGraphCompileException(std::string message, int line, const char* file) noexcept : MyException(line, file), message(std::move(message)) {}
 
 	const char* RenderGraphCompileException::what() const noexcept
 	{
 		std::ostringstream oss;
-		oss << FarokhException::what() << std::endl;
+		oss << MyException::what() << std::endl;
 		oss << "[message]" << std::endl;
 		oss << message;
 		whatBuffer = oss.str();
