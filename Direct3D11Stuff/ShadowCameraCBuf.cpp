@@ -13,7 +13,8 @@ namespace Bind
 	}
 	void ShadowCameraCBuf::Update(Graphics& gfx)
 	{
-		const Transform t{ dx::XMMatrixTranspose(pCamera->GetMatrix() * pCamera->GetProjection()) };
+		const auto pos = pCamera->GetPos();
+		const Transform t{ dx::XMMatrixTranspose(dx::XMMatrixTranslation(-pos.x,-pos.y,-pos.z)) };
 		pVcbuf->Update(gfx, t);
 	}
 	void ShadowCameraCBuf::SetCamera(const Camera* p) noexcept

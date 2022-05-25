@@ -64,6 +64,9 @@
     <Filter Include="Source Files\Model">
       <UniqueIdentifier>{70e49686-8e2d-4dde-93dd-2de3850c6d63}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Shaders\Common">
+      <UniqueIdentifier>{14c25e6f-7c41-485f-83de-28975406ce22}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinMain.cpp">
@@ -644,6 +647,9 @@
     <ClInclude Include="SkyboxTransformCbuf.h">
       <Filter>Header Files\Bindable</Filter>
     </ClInclude>
+    <ClInclude Include="Viewport.h">
+      <Filter>Header Files\Bindable</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Direct3D11Stuff.rc">
@@ -674,29 +680,29 @@
     <None Include="DXTrace.inl">
       <Filter>Dxerr</Filter>
     </None>
-    <None Include="LightVectorData.hlsli">
-      <Filter>Shaders</Filter>
-    </None>
-    <None Include="PointLight.hlsli">
-      <Filter>Shaders</Filter>
-    </None>
-    <None Include="ShaderOps.hlsli">
-      <Filter>Shaders</Filter>
-    </None>
-    <None Include="Transform.hlsli">
-      <Filter>Shaders</Filter>
-    </None>
-    <None Include="VShadow.hlsli">
-      <Filter>Shaders</Filter>
-    </None>
-    <None Include="PShadow.hlsli">
-      <Filter>Shaders</Filter>
-    </None>
     <None Include="_PShadow_Dynamic.hlsli">
-      <Filter>Shaders</Filter>
+      <Filter>Shaders\Common</Filter>
     </None>
     <None Include="_PShadow_Static.hlsli">
-      <Filter>Shaders</Filter>
+      <Filter>Shaders\Common</Filter>
+    </None>
+    <None Include="LightVectorData.hlsli">
+      <Filter>Shaders\Common</Filter>
+    </None>
+    <None Include="PointLight.hlsli">
+      <Filter>Shaders\Common</Filter>
+    </None>
+    <None Include="PShadow.hlsli">
+      <Filter>Shaders\Common</Filter>
+    </None>
+    <None Include="ShaderOps.hlsli">
+      <Filter>Shaders\Common</Filter>
+    </None>
+    <None Include="Transform.hlsli">
+      <Filter>Shaders\Common</Filter>
+    </None>
+    <None Include="VShadow.hlsli">
+      <Filter>Shaders\Common</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -770,6 +776,9 @@
       <Filter>Shaders</Filter>
     </FxCompile>
     <FxCompile Include="Skybox_PS.hlsl">
+      <Filter>Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="Shadow_VS.hlsl">
       <Filter>Shaders</Filter>
     </FxCompile>
   </ItemGroup>
